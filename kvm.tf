@@ -1,3 +1,11 @@
+terraform {
+  required_providers {
+    libvirt = {
+      source = "dmacvicar/libvirt"
+    }
+  }
+}
+
 provider "libvirt" {
   uri = "qemu:///system"
 }
@@ -10,7 +18,8 @@ provider "libvirt" {
 resource "libvirt_volume" "aws-qcow2" {
   name = "aws.qcow2"
   pool = "default"
-  source = "file:///var/lib/libvirt/images/amazon/amzn2-kvm-2.0.20190612-x86_64.xfs.gpt.qcow2"
+  #source = "file:///var/lib/libvirt/images/amazon/amzn2-kvm-2.0.20190612-x86_64.xfs.gpt.qcow2"
+  source = "file:///var/lib/libvirt/images/amazon/amzn2-kvm-2.0.20200304.0-x86_64.xfs.gpt.qcow2"
   format = "qcow2"
 }
 
@@ -39,10 +48,10 @@ resource "libvirt_domain" "aws" {
 
   network_interface {
     #From virsh net-list
-    #network_name = "default"
+    network_name = "default"
     #network_name = "chanslor.edu"
     #network_name = "ip6"
-    network_name = "vm_network"
+    #network_name = "vm_network"
   }
 
   disk {
